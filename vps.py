@@ -1350,10 +1350,6 @@ def _serve():
         return {"ok": True}
 
     def do_delete(mid, path):
-        # normpath first: the raw string "/home/.." isn't "/", but it's where
-        # rm -rf would land — comparing the un-normalized path only catches
-        # someone who typed "/" itself, not ".." dressed up to reach the same
-        # place.
         if not posixpath.normpath(path or "/").rstrip("/"):
             raise Http(400, "refusing to delete /")
         c = get_conn(mid)
